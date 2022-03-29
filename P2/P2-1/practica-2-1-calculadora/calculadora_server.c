@@ -63,6 +63,14 @@ double * raiz_cuadrada_1_svc(int n1,  struct svc_req *rqstp) {
 	return &result;
 }
 
+double * logaritmo_1_svc(int n1,  struct svc_req *rqstp) {
+	static double result;
+
+	result = log(n1);
+
+	return &result;
+}
+
 double * valor_absoluto_1_svc(int n1,  struct svc_req *rqstp) {
 	static double result;
 

@@ -78,6 +78,9 @@ extern  double * raiz_cuadrada_1_svc(int , struct svc_req *);
 #define VALOR_ABSOLUTO 8
 extern  double * valor_absoluto_1(int , CLIENT *);
 extern  double * valor_absoluto_1_svc(int , struct svc_req *);
+#define LOGARITMO 9
+extern  double * logaritmo_1(int , CLIENT *);
+extern  double * logaritmo_1_svc(int , struct svc_req *);
 extern int calculadora_1_freeresult (SVCXPRT *, xdrproc_t, caddr_t);
 
 #else /* K&R C */
@@ -105,6 +108,9 @@ extern  double * raiz_cuadrada_1_svc();
 #define VALOR_ABSOLUTO 8
 extern  double * valor_absoluto_1();
 extern  double * valor_absoluto_1_svc();
+#define LOGARITMO 9
+extern  double * logaritmo_1();
+extern  double * logaritmo_1_svc();
 extern int calculadora_1_freeresult ();
 #endif /* K&R C */
 

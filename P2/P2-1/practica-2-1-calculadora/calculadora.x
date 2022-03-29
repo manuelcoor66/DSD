@@ -12,5 +12,6 @@ program CALCULADORA{
 		double ELEVAR (double n1, double n2) = 6;
 		double RAIZ_CUADRADA (int n1) = 7;
 		double VALOR_ABSOLUTO (int n1) = 8;
+		double LOGARITMO (int n2) = 9;
 	} = 1;
 } =0x20000001;

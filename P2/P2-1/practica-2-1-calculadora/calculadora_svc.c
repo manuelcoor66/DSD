@@ -64,6 +64,12 @@ _valor_absoluto_1 (int  *argp, struct svc_req *rqstp)
 	return (valor_absoluto_1_svc(*argp, rqstp));
 }
 
+static double *
+_logaritmo_1 (int  *argp, struct svc_req *rqstp)
+{
+	return (logaritmo_1_svc(*argp, rqstp));
+}
+
 static void
 calculadora_1(struct svc_req *rqstp, register SVCXPRT *transp)
 {
@@ -76,6 +82,7 @@ calculadora_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		elevar_1_argument elevar_1_arg;
 		int raiz_cuadrada_1_arg;
 		int valor_absoluto_1_arg;
+		int logaritmo_1_arg;
 	} argument;
 	char *result;
 	xdrproc_t _xdr_argument, _xdr_result;
@@ -132,6 +139,12 @@ calculadora_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		_xdr_argument = (xdrproc_t) xdr_int;
 		_xdr_result = (xdrproc_t) xdr_double;
 		local = (char *(*)(char *, struct svc_req *)) _valor_absoluto_1;
+		break;
+
+	case LOGARITMO:
+		_xdr_argument = (xdrproc_t) xdr_int;
+		_xdr_result = (xdrproc_t) xdr_double;
+		local = (char *(*)(char *, struct svc_req *)) _logaritmo_1;
 		break;
 
 	default:

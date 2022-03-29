@@ -42,11 +42,17 @@ void calculadora_1(char *server, double n1, double n2, char op) {
 	else if (op == 'r') {
 		resultado_operacion = raiz_cuadrada_1(n1, clnt);
 	}
+	else if (op == 'l') {
+		resultado_operacion = logaritmo_1(n1, clnt);
+	}
+	else if (op == 'l') {
+		resultado_operacion = logaritmo_1(n1, clnt);
+	}
 	else if (op == 'a') {
 		resultado_operacion = valor_absoluto_1(n1, clnt);
 	}
 	else {
-		fprintf(stderr, "ERROR, se ha introducido operador no existente (elegir entre +, -, *, /, %, ^, r, a)\n");
+		fprintf(stderr, "ERROR, se ha introducido operador no existente (elegir entre +, -, *, /, %, ^, r, a, l)\n");
 		exit(1);
 	}
 
