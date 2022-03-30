@@ -45,9 +45,6 @@ void calculadora_1(char *server, double n1, double n2, char op) {
 	else if (op == 'l') {
 		resultado_operacion = logaritmo_1(n1, clnt);
 	}
-	else if (op == 'l') {
-		resultado_operacion = logaritmo_1(n1, clnt);
-	}
 	else if (op == 'a') {
 		resultado_operacion = valor_absoluto_1(n1, clnt);
 	}
@@ -75,15 +72,29 @@ int main (int argc, char *argv[]) {
 	char *server;
 	double n1, n2;
 	char op;
+	int si = 0;
 
-	if (argc != 5) {
-		printf ("Uso: %s <servidor> <primer numero> <operador> <segundo numero>\n", argv[0]);
+	if (argc != 5 && argc != 4) {
+		printf ("ERROR, uso: %s <servidor> <primer numero> <operador> <segundo numero (opcional)>\n", argv[0]);
 		exit (1);
 	}
+	else {
+		if (argc == 4 && (*argv[3] != 'r' && *argv[3] != 'l' && *argv[3] != 'a')) {
+			printf ("ERROR, uso: %s <servidor> <primer numero> <operador(r, l, a)>\n", argv[0]);
+			exit (1);
+		}
+		else
+			si = 1;	
+	}
+	
 	server = argv[1];
 	n1 = atoi(argv[2]);
 	op = *argv[3];
-	n2 = atoi(argv[4]);
+	if (si == 0) 
+		n2 = atoi(argv[4]); 
+	else 
+		n2 = 0;
+	
 
 	calculadora_1 (server, n1, n2, op);
 	exit (0);
