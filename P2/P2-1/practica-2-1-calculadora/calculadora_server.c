@@ -8,73 +8,73 @@ Programa hecho por Manuel Contreras Orge
 #include <math.h>
 
 double * sumar_1_svc(double n1, double n2,  struct svc_req *rqstp) {
-	static double result;
+	static double resultado_sumar;
 
-	result = (n1 + n2);
+	resultado_sumar = (n1 + n2);
 
-	return &result;
+	return &resultado_sumar;
 }
 
 double * restar_1_svc(double n1, double n2,  struct svc_req *rqstp) {
-	static double result;
+	static double resultado_restar;
 
-	result = (n1 - n2);
+	resultado_restar = (n1 - n2);
 
-	return &result;
+	return &resultado_restar;
 }
 
 double * multiplicar_1_svc(double n1, double n2,  struct svc_req *rqstp) {
-	static double result;
+	static double resultado_multiplicar;
 
-	result = (n1 * n2);
+	resultado_multiplicar = (n1 * n2);
 
-	return &result;
+	return &resultado_multiplicar;
 }
 
 double * dividir_1_svc(double n1, double n2,  struct svc_req *rqstp) {
-	static double result;
+	static double resultado_dividir;
 
-	result = (n1 / n2);
+	resultado_dividir = (n1 / n2);
 
-	return &result;
+	return &resultado_dividir;
 }
 
 double * modulo_1_svc(int n1, int n2,  struct svc_req *rqstp) {
-	static double result;
+	static double resultado_modulo;
 
-	result = (n1 % n2);
+	resultado_modulo = (n1 % n2);
 
-	return &result;
+	return &resultado_modulo;
 }
 
 double * elevar_1_svc(double n1, double n2,  struct svc_req *rqstp) {
-	static double result;
+	static double resultado_elevar;
 
-	result = (double)(pow((double)n1, (double)n2));
+	resultado_elevar = pow(n1, n2);
 
-	return &result;
+	return &resultado_elevar;
 }
 
 double * raiz_cuadrada_1_svc(int n1,  struct svc_req *rqstp) {
-	static double result;
+	static double resultado_raiz_cuadrada;
 
-	result = sqrt(n1);
+	resultado_raiz_cuadrada = sqrt(n1);
 
-	return &result;
+	return &resultado_raiz_cuadrada;
 }
 
 double * logaritmo_1_svc(int n1,  struct svc_req *rqstp) {
-	static double result;
+	static double resultado_logaritmo;
 
-	result = log(n1);
+	resultado_logaritmo = log(n1);
 
-	return &result;
+	return &resultado_logaritmo;
 }
 
 double * valor_absoluto_1_svc(int n1,  struct svc_req *rqstp) {
-	static double result;
+	static double resultado_valor_absoluto;
 
-	result = fabs(n1);
+	resultado_valor_absoluto = fabs(n1);
 
-	return &result;
+	return &resultado_valor_absoluto;
 }

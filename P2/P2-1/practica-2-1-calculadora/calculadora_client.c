@@ -49,7 +49,7 @@ void calculadora_1(char *server, double n1, double n2, char op) {
 		resultado_operacion = valor_absoluto_1(n1, clnt);
 	}
 	else {
-		fprintf(stderr, "ERROR, se ha introducido operador no existente (elegir entre +, -, *, /, %, ^, r, a, l)\n");
+		fprintf(stderr, "ERROR, se ha introducido operador no existente (elegir entre +, -, *-x, /, %, ^, r, a, l)\n");
 		exit(1);
 	}
 
@@ -70,30 +70,29 @@ void calculadora_1(char *server, double n1, double n2, char op) {
 
 int main (int argc, char *argv[]) {
 	char *server;
-	double n1, n2;
+	double n1, n2 = 0;
 	char op;
-	int si = 0;
+	int dos_numeros = 1; //Si vale 1 es que hay que meter dos números en las operaciones y si vale 0 es que no
 
 	if (argc != 5 && argc != 4) {
 		printf ("ERROR, uso: %s <servidor> <primer numero> <operador> <segundo numero (opcional)>\n", argv[0]);
 		exit (1);
 	}
-	else {
-		if (argc == 4 && (*argv[3] != 'r' && *argv[3] != 'l' && *argv[3] != 'a')) {
+	else if (argc == 4 ) {
+		if (*argv[3] != 'r' && *argv[3] != 'l' && *argv[3] != 'a') {
 			printf ("ERROR, uso: %s <servidor> <primer numero> <operador(r, l, a)>\n", argv[0]);
 			exit (1);
 		}
-		else
-			si = 1;	
+		else {
+			dos_numeros = 0;
+		}
 	}
 	
 	server = argv[1];
 	n1 = atoi(argv[2]);
 	op = *argv[3];
-	if (si == 0) 
+	if (dos_numeros == 1) 
 		n2 = atoi(argv[4]); 
-	else 
-		n2 = 0;
 	
 
 	calculadora_1 (server, n1, n2, op);
