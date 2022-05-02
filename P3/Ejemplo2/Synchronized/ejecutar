@@ -1,0 +1,8 @@
+##Primero lanzamos el rmiregistry
+rmiregistry
+
+##Ejecución del Servidor
+java -cp . -Djava.rmi.server.codebase=file:~/Escritorio/DSD/P3/Ejemplo2/ -Djava.rmi.server.hostname=localhost -Djava.security.policy=server.policy Ejemplo
+
+##Ejecución del CLiente
+java -cp . -Djava.rmi.server.codebase=file:~/Escritorio/DSD/P3/Ejemplo2/ -Djava.security.policy=server.policy Cliente_Ejemplo_Multi_Threaded localhost 11
