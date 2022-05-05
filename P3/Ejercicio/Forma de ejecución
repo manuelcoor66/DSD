@@ -1,0 +1,8 @@
+##Primero lanzamos el rmiregistry 1100
+rmiregistry
+
+##Ejecución del Servidor
+java -cp . -Djava.rmi.server.codebase=file:~/Escritorio/DSD/P3/Ejercicio/ -Djava.rmi.server.hostname=localhost -Djava.security.policy=server.policy servidor
+
+##Ejecución del CLiente
+java -cp . -Djava.rmi.server.codebase=file:~/Escritorio/DSD/P3/Ejercicio/ -Djava.security.policy=server.policy cliente localhost 11
