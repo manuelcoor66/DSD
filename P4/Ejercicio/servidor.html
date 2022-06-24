@@ -1,0 +1,153 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <link rel="stylesheet" type="text/css" href="servidor.css">
+		<title>Servidor   </title>
+	</head>
+	<body>
+      <div class="principal">
+         <div class="titulo">
+            <h1>Sensores</h1>
+         </div>
+
+         <div class="sensores">
+            <form action="javascript:void(0);" onsubmit="javascript:enviar();">
+               Temperatura (°C): <input type="number" class="elemento" id="temp"/> <br/>
+               Luminosidad (0 - 50): <input type="number" class="elemento" id="lumi"/> <br/>
+               <input type="submit" class="boton" value="Cambiar valores"/>
+            </form>
+         </div>
+
+         <div class="estados">
+            <span id="mensaje_servicio"></span> <br/>
+            <span id="resulTemp"></span>
+            <span id="resulLumi"></span> <br/>
+
+            Estado de la persiana: <span id="persiana">CERRADA</span></br>
+            Estado del aire acondicionado: <span id="aire">APAGADO</span></br>
+            <span id="mensaje"></span>
+         </div> 
+      </div> 
+
+      <div class="historial">
+         <div class="titulo">
+            <h1>Historial</h1>
+         </div>
+         
+         <form action="javascript:void(0);" onsubmit="javascript:borrarHistorial();">
+            <input type="submit" value="Borrar historial"/>
+         </form>
+      </div>
+      <div id="Historial"></div>
+   </body>
+   <script src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript">
+      var socket = io.connect("http://127.0.0.1:8080");
+
+		function enviar() {
+         var t = new Date();
+			var temp = document.getElementById("temp").value;
+         var lumi = document.getElementById("lumi").value;
+         console.log("ENVIANDO " + temp);
+         
+         socket.emit('sensores');
+         socket.emit('obtener-medidas');
+      }
+
+      function borrarHistorial() {
+         socket.emit('borrar-historial');
+      }
+      
+      function mostrarMedidas(msg){
+         var temperatura = document.getElementById('resulTemp');
+         var luminosidad = document.getElementById('resulLumi');
+         temperatura.innerHTML = msg.temperatura;
+         luminosidad.innerHTML = msg.luminosidad;
+      }
+      
+      function actualizarListaHistorial(historial){
+			var listContainer = document.getElementById('historial');
+			listContainer.innerHTML = '';
+         var listElement = document.createElement('ul');
+         listElement.style.overflowY = "scroll";
+         listElement.style.height = "50%";
+			listContainer.appendChild(listElement);
+			var num = historial.length;
+			for(var i = 0 ; i < num ; i++) {
+	         var listItem = document.createElement('li');
+            listItem.innerHTML = "<strong>Temperatura: </strong>" + historial[i].temperatura 
+                              + " <strong>Luminosidad: </strong>" + historial[i]. luminosidad 
+                              + " <strong>Tiempo: </strong>" + historial[i].tiempo;
+	         listElement.appendChild(listItem);
+	      }
+      }
+
+      socket.on('mensaje', function(mensaje, data){
+         var al = document.getElementById("mensaje");
+         al.innerHTML = mensaje;
+
+         mostrarMedidas(data);
+      });
+      
+      // Apagar el aire = +5 grados
+      socket.on('apagar-aire', function() {
+         var a = document.getElementById("aire");
+         a.innerHTML = "APAGADO";
+
+         var temperatura = document.getElementById("temp").value;
+         document.getElementById("temp").value = parseInt(temperatura) + 5;
+
+         // Enviar medidas actualizadas
+         enviar();
+      });
+
+      // Encender el aire = -5 grados
+      socket.on('encender-aire', function() {
+         var a = document.getElementById("aire");
+         a.innerHTML = "ENCENDIDO";
+
+         var temperatura = document.getElementById("temp").value;
+         document.getElementById("temp").value = parseInt(temperatura) - 5;
+
+         // Enviar medidas actualizadas
+         enviar();
+      });
+
+      // Cerrar la persiana = -10 luminosidad
+      socket.on('cerrar-persiana', function() {
+         var p = document.getElementById("persiana");
+         p.innerHTML = "CERRADA";
+
+         var luminosidad = document.getElementById("lumi").value;
+         document.getElementById("lumi").value = parseInt(luminosidad) - 10;
+
+         // Enviar medidas actualizadas
+         enviar();
+      });
+
+      // Abrir la persiana = +10 luminosidad
+      socket.on('abrir-persiana', function() {
+         var p = document.getElementById("persiana");
+         p.innerHTML = "ABIERTA";
+
+         var luminosidad = document.getElementById("lumi").value;
+         document.getElementById("lumi").value = parseInt(luminosidad) + 10;
+
+         // Enviar medidas actualizadas
+         enviar();
+      });
+      
+		socket.on('medidas-casa', function(data) {
+			mostrarMedidas(data);
+      });
+
+      socket.on('obtener-medidas', function(data) {
+			actualizarListaHistorial(data);
+		});
+      
+		socket.on('disconnect', function() {
+			var span_msg = document.getElementById('mensaje_servicio');
+			span_msg.innerHTML = msg;
+		});
+	</script>
+</html>
