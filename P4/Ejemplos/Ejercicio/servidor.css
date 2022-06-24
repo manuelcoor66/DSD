@@ -1,0 +1,39 @@
+body{
+    background-color: rgb(143, 176, 245);
+}
+
+.principal{
+    float: left;
+    width: 100%;
+}
+
+.sensores{
+    float: left;
+    padding-left: 15%;
+}
+
+.titulo{
+    text-align: center;
+    width: 100%;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.elemento{
+    margin-top: 5px;
+}
+
+.boton{
+    margin-top: 10px;
+}
+
+.estados{
+    float: right;
+    padding-right: 30%;
+}
+
+.historial{
+    float: left;
+    text-align: center;
+    width: 100%;
+    margin-top: 20px;
+}
